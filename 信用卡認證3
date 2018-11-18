@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+
+int abcd(long int card1, long int card2) {
+     int total = 0;
+     for (int a = 0; a < 8; a++) {
+         int code = card1 % 10;
+         card1 = (card1 - code) / 100;
+         total = total + code;
+     }
+     for (int a = 0; a < 8; a++) {
+         int code = card2 / 10 % 10;
+         card2 = (card2 - code) / 100;
+         if (code > 4) {
+         code = code * 2 / 10 + code * 2 % 10;
+         }
+         else {
+         code = code * 2;
+         }
+         total = total + code;
+     }
+     return total;
+}
+
+int main(int total) {
+    long int card, card1, card2;
+    int check_number, x;
+    cout << "請輸入您的信用卡卡號:";
+    cin >> card;
+    card1 = card;
+    card2 = card;
+    total = abcd(card1, card2);
+    for (int a = 0; a < 16; a++) {
+        x = card % 10;
+        card = (card - x) / 10;
+    }
+    if (total % 10 == 0) {
+       check_number = 0;
+    }
+    else {
+         check_number = 10 - x % 10;
+    }
+    if (check_number == card % 10) {
+       if (x == 4) { 
+          cout << "您的信用卡為Visa的\n";
+       } 
+       else if (x == 5) { 
+               cout << "您的信用卡為Master的\n";
+       }  
+       else {
+            cout << "您的信用卡卡號無效\n";
+       }
+    }
+    else {
+         cout << "您的信用卡卡號無效\n";
+    }
+}
